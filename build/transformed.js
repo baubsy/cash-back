@@ -48,6 +48,7 @@
 	var ReactDOM = __webpack_require__(32);
 	var App = __webpack_require__(178);
 	console.log("debug 1");
+
 	ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
 
 /***/ },
@@ -21464,21 +21465,36 @@
 	var React = __webpack_require__(1);
 	var Button = __webpack_require__(179);
 	var Input = __webpack_require__(180);
+	var Options = __webpack_require__(181);
 
+	//maybe make a status.js
 	var App = React.createClass({
 	  displayName: 'App',
 
-	  getInitalState: function () {
-	    return { target: "8.55",
-	      current: "0.0" }; //TODO make target randomized
+	  getInitialState: function () {
+	    return { target: 8.55,
+	      total: 11.45,
+	      paid: 20.00,
+	      current: 0.0 }; //TODO make target calculated from total and paid amount, make total and paid random
+	  },
+	  compare: function () {
+	    console.log('debug compare');
+	    //compare target and current on submit click
+	    //pass current and target?
 	  },
 	  render: function () {
 	    //console.log(App.state.target);
-	    return React.createElement(Input, null);
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(Options, null),
+	      React.createElement(Input, { onClick: this.compare })
+	    ); //have input keep track of the state?
 	  },
 
-	  componentDidUpdate: function (prevProps, prevState) {
-	    console.log(prevState);
+	  componentDidMount: function () {
+	    console.log('test1');
+	    console.log(this.state);
 	  }
 	});
 
@@ -21490,14 +21506,15 @@
 
 	var React = __webpack_require__(1);
 
+	//example <button onClick={this.props.onClick}>
 	var button = React.createClass({
 	  displayName: 'button',
 
 	  render: function () {
 	    return React.createElement(
 	      'button',
-	      null,
-	      this.props.cash
+	      { onClick: this.props.onClick },
+	      '$' + this.props.cash
 	    );
 	  }
 	});
@@ -21510,35 +21527,73 @@
 
 	var React = __webpack_require__(1);
 	var Button = __webpack_require__(179);
-
+	//include a submit button. should compare apps current and target
 	var Input = React.createClass({
 	  displayName: 'Input',
 
+	  getInitialState: function () {
+	    return { current: 0 };
+	  },
+	  handleClick: function (e) {
+	    //logic for adding up button clicks
+	    console.log('debug button click');
+	    this.setState({
+
+	      current: this.state.current + Button.props.cash
+	    });
+	    console.log(this.state.current);
+	  },
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
-	        'div',
-	        null,
-	        React.createElement(Button, { cash: '$20' }),
-	        React.createElement(Button, { cash: '$10' }),
-	        React.createElement(Button, { cash: '$5' }),
-	        React.createElement(Button, { cash: '$1' })
+	        'button',
+	        { onClick: this.props.onClick },
+	        'Submit'
 	      ),
 	      React.createElement(
 	        'div',
 	        null,
-	        React.createElement(Button, { cash: '$.25' }),
-	        React.createElement(Button, { cash: '$.10' }),
-	        React.createElement(Button, { cash: '$.05' }),
-	        React.createElement(Button, { cash: '$.01' })
+	        React.createElement(Button, { cash: 20, onClick: this.handleClick }),
+	        React.createElement(Button, { cash: 10, onClick: this.handleClick }),
+	        React.createElement(Button, { cash: 5, onClick: this.handleClick }),
+	        React.createElement(Button, { cash: 1, onClick: this.handleClick })
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(Button, { cash: .25, onClick: this.handleClick }),
+	        React.createElement(Button, { cash: .10, onClick: this.handleClick }),
+	        React.createElement(Button, { cash: .05, onClick: this.handleClick }),
+	        React.createElement(Button, { cash: .01, onClick: this.handleClick })
 	      )
 	    );
 	  }
 	});
 
 	module.exports = Input;
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	//component for selecting options such as, hide amounts, do a set?, timed?
+	//pass state to app?
+	var Options = React.createClass({
+	  displayName: 'Options',
+
+	  render: function () {
+	    return React.createElement(
+	      'p',
+	      null,
+	      'temp options'
+	    );
+	  }
+	});
+
+	module.exports = Options;
 
 /***/ }
 /******/ ]);
