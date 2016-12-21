@@ -10,8 +10,8 @@ var Input = React.createClass({
     console.log('debug button click')
     this.setState({
 
-      current: this.state.current + Button.props.cash
-    }) //cant read cash this way TODO
+      current: this.state.current + e.props.cash
+    }) //cant read cash this way TODO reasearch passing e as an argument in react
     console.log(this.state.current)
   },
   render: function () {

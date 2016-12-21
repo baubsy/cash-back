@@ -21540,7 +21540,7 @@
 	    this.setState({
 
 	      current: this.state.current + Button.props.cash
-	    });
+	    }); //cant read cash this way TODO
 	    console.log(this.state.current);
 	  },
 	  render: function () {
