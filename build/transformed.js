@@ -21510,7 +21510,12 @@
 	var button = React.createClass({
 	  displayName: 'button',
 
+	  //var stateCash = this.props.cash , look up passing state up
+	  getInitalState: function () {
+	    return { value: this.props.cash };
+	  },
 	  render: function () {
+	    console.log(this.state);
 	    return React.createElement(
 	      'button',
 	      { onClick: this.props.onClick },
@@ -21528,6 +21533,8 @@
 	var React = __webpack_require__(1);
 	var Button = __webpack_require__(179);
 	//include a submit button. should compare apps current and target
+	var debugCash = 0;
+
 	var Input = React.createClass({
 	  displayName: 'Input',
 
@@ -21537,12 +21544,18 @@
 	  handleClick: function (e) {
 	    //logic for adding up button clicks
 	    console.log('debug button click');
-	    this.setState({
+	    //console.log(cash);
 
-	      current: this.state.current + Button.props.cash
-	    }); //cant read cash this way TODO
-	    console.log(this.state.current);
+	    debugCash = debugCash + 1;
+	    console.log(debugCash);
+	    console.log(e);
+
+	    this.setState({
+	      value: e.target.value
+
+	    });
 	  },
+	  //TODO change this.props.onClick to a function that compares values for submit button
 	  render: function () {
 	    return React.createElement(
 	      'div',

@@ -1,6 +1,8 @@
 var React = require('react');
 var Button = require('./button');
 //include a submit button. should compare apps current and target
+var debugCash = 0;
+
 var Input = React.createClass({
   getInitialState: function () {
     return {current : 0 };
@@ -8,12 +10,20 @@ var Input = React.createClass({
   handleClick: function (e) {
     //logic for adding up button clicks
     console.log('debug button click')
-    this.setState({
+    //console.log(cash);
 
-      current: this.state.current + e.props.cash
-    }) //cant read cash this way TODO reasearch passing e as an argument in react
-    console.log(this.state.current)
+    debugCash = debugCash + 1;
+    console.log(debugCash);
+    console.log(e);
+
+    this.setState({
+      value: e.target.value
+
+    })
+
+
   },
+  //TODO change this.props.onClick to a function that compares values for submit button
   render: function () {
     return (
       <div>
