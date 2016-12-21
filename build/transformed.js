@@ -21511,14 +21511,26 @@
 	  displayName: 'button',
 
 	  //var stateCash = this.props.cash , look up passing state up
-	  getInitalState: function () {
-	    return { value: this.props.cash };
+	  //TODO state should not be based on just cash, need to pass total as a props
+	  getInitialState: function () {
+	    return { value: this.props.current };
+	  },
+	  handleButton: function () {
+	    console.log('button click debug');
+	    //console.log(this.state);
+
+	    this.setState({
+	      value: this.props.cash + this.props.current
+	    });
+	    console.log(this.state.value);
+
+	    this.props.onClick(this.props.cash);
 	  },
 	  render: function () {
 	    console.log(this.state);
 	    return React.createElement(
 	      'button',
-	      { onClick: this.props.onClick },
+	      { onClick: this.handleButton },
 	      '$' + this.props.cash
 	    );
 	  }
@@ -21533,7 +21545,7 @@
 	var React = __webpack_require__(1);
 	var Button = __webpack_require__(179);
 	//include a submit button. should compare apps current and target
-	var debugCash = 0;
+	//var debugCash = 0;
 
 	var Input = React.createClass({
 	  displayName: 'Input',
@@ -21541,19 +21553,24 @@
 	  getInitialState: function () {
 	    return { current: 0 };
 	  },
-	  handleClick: function (e) {
+	  handleClick: function (cash) {
 	    //logic for adding up button clicks
-	    console.log('debug button click');
+	    console.log('debug button click input');
 	    //console.log(cash);
-
+	    //console.log(e);
+	    //console.log(Button.props.cash);
+	    /*
 	    debugCash = debugCash + 1;
 	    console.log(debugCash);
-	    console.log(e);
+	    */
 
 	    this.setState({
-	      value: e.target.value
+	      current: cash + this.state.current
 
 	    });
+	  },
+	  componentDidUpdate: function () {
+	    console.log('inputs state current is ' + this.state.current);
 	  },
 	  //TODO change this.props.onClick to a function that compares values for submit button
 	  render: function () {
@@ -21568,18 +21585,18 @@
 	      React.createElement(
 	        'div',
 	        null,
-	        React.createElement(Button, { cash: 20, onClick: this.handleClick }),
-	        React.createElement(Button, { cash: 10, onClick: this.handleClick }),
-	        React.createElement(Button, { cash: 5, onClick: this.handleClick }),
-	        React.createElement(Button, { cash: 1, onClick: this.handleClick })
+	        React.createElement(Button, { cash: 20, onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: 10, onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: 5, onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: 1, onClick: this.handleClick, current: this.state.current })
 	      ),
 	      React.createElement(
 	        'div',
 	        null,
-	        React.createElement(Button, { cash: .25, onClick: this.handleClick }),
-	        React.createElement(Button, { cash: .10, onClick: this.handleClick }),
-	        React.createElement(Button, { cash: .05, onClick: this.handleClick }),
-	        React.createElement(Button, { cash: .01, onClick: this.handleClick })
+	        React.createElement(Button, { cash: .25, onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: .10, onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: .05, onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: .01, onClick: this.handleClick, current: this.state.current })
 	      )
 	    );
 	  }
