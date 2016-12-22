@@ -21465,18 +21465,20 @@
 	var React = __webpack_require__(1);
 	var Button = __webpack_require__(179);
 	var Input = __webpack_require__(180);
-	var Options = __webpack_require__(181);
+	var Options = __webpack_require__(182);
 
 	//maybe make a status.js
 	var App = React.createClass({
 	  displayName: 'App',
 
+	  /*
 	  getInitialState: function () {
-	    return { target: 8.55,
-	      total: 11.45,
-	      paid: 20.00,
-	      current: 0.0 }; //TODO make target calculated from total and paid amount, make total and paid random
+	    return {target: 8.55,
+	            total: 11.45,
+	            paid: 20.00,
+	            current: 0.0}; //TODO make target calculated from total and paid amount, make total and paid random
 	  },
+	  */
 	  compare: function () {
 	    console.log('debug compare');
 	    //compare target and current on submit click
@@ -21531,7 +21533,7 @@
 	    return React.createElement(
 	      'button',
 	      { onClick: this.handleButton },
-	      '$' + this.props.cash
+	      '$' + this.props.label
 	    );
 	  }
 	});
@@ -21544,14 +21546,23 @@
 
 	var React = __webpack_require__(1);
 	var Button = __webpack_require__(179);
+	var Status = __webpack_require__(181);
 	//include a submit button. should compare apps current and target
 	//var debugCash = 0;
+
+	var total = 50; //make random
+	var paid = 100; //make random higher than total
+	var target = paid - total;
 
 	var Input = React.createClass({
 	  displayName: 'Input',
 
+
 	  getInitialState: function () {
-	    return { current: 0 };
+	    return { current: 0,
+	      total: total,
+	      paid: paid,
+	      target: target };
 	  },
 	  handleClick: function (cash) {
 	    //logic for adding up button clicks
@@ -21571,12 +21582,15 @@
 	  },
 	  componentDidUpdate: function () {
 	    console.log('inputs state current is ' + this.state.current);
+	    console.log(this.state);
 	  },
 	  //TODO change this.props.onClick to a function that compares values for submit button
+	  //TODO add status props
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      null,
+	      React.createElement(Status, null),
 	      React.createElement(
 	        'button',
 	        { onClick: this.props.onClick },
@@ -21585,18 +21599,18 @@
 	      React.createElement(
 	        'div',
 	        null,
-	        React.createElement(Button, { cash: 20, onClick: this.handleClick, current: this.state.current }),
-	        React.createElement(Button, { cash: 10, onClick: this.handleClick, current: this.state.current }),
-	        React.createElement(Button, { cash: 5, onClick: this.handleClick, current: this.state.current }),
-	        React.createElement(Button, { cash: 1, onClick: this.handleClick, current: this.state.current })
+	        React.createElement(Button, { cash: 20, label: "20", onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: 10, label: "10", onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: 5, label: "5", onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: 1, label: "1", onClick: this.handleClick, current: this.state.current })
 	      ),
 	      React.createElement(
 	        'div',
 	        null,
-	        React.createElement(Button, { cash: .25, onClick: this.handleClick, current: this.state.current }),
-	        React.createElement(Button, { cash: .10, onClick: this.handleClick, current: this.state.current }),
-	        React.createElement(Button, { cash: .05, onClick: this.handleClick, current: this.state.current }),
-	        React.createElement(Button, { cash: .01, onClick: this.handleClick, current: this.state.current })
+	        React.createElement(Button, { cash: .25, label: ".25", onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: .10, label: ".10", onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: .05, label: ".05", onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: .01, label: ".01", onClick: this.handleClick, current: this.state.current })
 	      )
 	    );
 	  }
@@ -21606,6 +21620,26 @@
 
 /***/ },
 /* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var Status = React.createClass({
+	  displayName: 'Status',
+
+	  render: function () {
+	    return React.createElement(
+	      'p',
+	      null,
+	      'status message'
+	    );
+	  }
+	});
+
+	module.exports = Status;
+
+/***/ },
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);

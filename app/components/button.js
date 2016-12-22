@@ -20,7 +20,7 @@ var button = React.createClass({
   },
   render: function () {
     console.log(this.state);
-    return <button onClick={this.handleButton}>{'$' + this.props.cash}</button>;
+    return <button onClick={this.handleButton}>{'$' + this.props.label}</button>;
   }
 });
 
