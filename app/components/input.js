@@ -16,12 +16,12 @@ var Input = React.createClass({
             paid : paid,
             target : target };
   },
+  handleSubmit: function () {
+    this.props.onClick(this.state.current, this.state.target);
+  },
   handleClick: function (cash) {
     //logic for adding up button clicks
     console.log('debug button click input');
-    //console.log(cash);
-    //console.log(e);
-    //console.log(Button.props.cash);
     /*
     debugCash = debugCash + 1;
     console.log(debugCash);
@@ -44,7 +44,7 @@ var Input = React.createClass({
     return (
       <div>
         <Status total = {this.state.total} paid = {this.state.paid} current = {this.state.current}/>
-        <button onClick = {this.props.onClick}>Submit</button>
+        <button onClick = {this.handleSubmit} >Submit</button>
         <div>
           <Button cash = {20} label = {"20"} onClick = {this.handleClick} current = {this.state.current}/>
           <Button cash = {10} label = {"10"} onClick = {this.handleClick} current = {this.state.current}/>

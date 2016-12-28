@@ -21479,10 +21479,26 @@
 	            current: 0.0}; //TODO make target calculated from total and paid amount, make total and paid random
 	  },
 	  */
-	  compare: function () {
+	  compare: function (current, target) {
+	    //TODO either run a state that indicates a game mode and determines what to do in this function
+	    //or make a differnt function that gets called becdause of  agame mode state
 	    console.log('debug compare');
+	    console.log(current);
+	    console.log(target);
+
+	    if (current == target) {
+	      //TODO render a correct answer message
+	      console.log("correct");
+	    } else if (current > target) {
+	      //TODO render a missed answer message saying too much given, maybe in status
+	      console.log("too much");
+	    } else if (current < target) {
+	      //TODO render missed message showing not enought given
+	      console.log("not enough");
+	    }
 	    //compare target and current on submit click
 	    //pass current and target?
+	    //have status wait and than update props triggering reset?
 	  },
 	  render: function () {
 	    //console.log(App.state.target);
@@ -21564,12 +21580,12 @@
 	      paid: paid,
 	      target: target };
 	  },
+	  handleSubmit: function () {
+	    this.props.onClick(this.state.current, this.state.target);
+	  },
 	  handleClick: function (cash) {
 	    //logic for adding up button clicks
 	    console.log('debug button click input');
-	    //console.log(cash);
-	    //console.log(e);
-	    //console.log(Button.props.cash);
 	    /*
 	    debugCash = debugCash + 1;
 	    console.log(debugCash);
@@ -21590,10 +21606,10 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(Status, null),
+	      React.createElement(Status, { total: this.state.total, paid: this.state.paid, current: this.state.current }),
 	      React.createElement(
 	        'button',
-	        { onClick: this.props.onClick },
+	        { onClick: this.handleSubmit },
 	        'Submit'
 	      ),
 	      React.createElement(
@@ -21624,6 +21640,7 @@
 
 	var React = __webpack_require__(1);
 
+	//pass in target and current. use function on click to compare. give how far off or victory message
 	var Status = React.createClass({
 	  displayName: 'Status',
 
