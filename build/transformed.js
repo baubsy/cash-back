@@ -21467,6 +21467,8 @@
 	var Input = __webpack_require__(180);
 	var Options = __webpack_require__(182);
 
+	//TODO after hitting submit prompt for another round, update target, total, and paid/set current back to zero
+
 	//maybe make a status.js
 	var App = React.createClass({
 	  displayName: 'App',
@@ -21479,6 +21481,9 @@
 	            current: 0.0}; //TODO make target calculated from total and paid amount, make total and paid random
 	  },
 	  */
+	  getInitialState: function () {
+	    return { status: "begin" };
+	  },
 	  compare: function (current, target) {
 	    //TODO either run a state that indicates a game mode and determines what to do in this function
 	    //or make a differnt function that gets called becdause of  agame mode state
@@ -21489,12 +21494,15 @@
 	    if (current == target) {
 	      //TODO render a correct answer message
 	      console.log("correct");
+	      this.setState({ status: "Correct" }); //TODO Improve these messages, give detailed info feed back
 	    } else if (current > target) {
 	      //TODO render a missed answer message saying too much given, maybe in status
 	      console.log("too much");
+	      this.setState({ status: "You gave too much back!" });
 	    } else if (current < target) {
 	      //TODO render missed message showing not enought given
 	      console.log("not enough");
+	      this.setState({ status: "You didn't give enough!" });
 	    }
 	    //compare target and current on submit click
 	    //pass current and target?
@@ -21506,7 +21514,7 @@
 	      'div',
 	      null,
 	      React.createElement(Options, null),
-	      React.createElement(Input, { onClick: this.compare })
+	      React.createElement(Input, { onClick: this.compare, status: this.state.status })
 	    ); //have input keep track of the state?
 	  },
 
@@ -21565,7 +21573,7 @@
 	var Status = __webpack_require__(181);
 	//include a submit button. should compare apps current and target
 	//var debugCash = 0;
-
+	//TODO fix rounding and decimal issues
 	var total = 50; //make random
 	var paid = 100; //make random higher than total
 	var target = paid - total;
@@ -21580,7 +21588,24 @@
 	      paid: paid,
 	      target: target };
 	  },
+	  randCash() {
+	    var debugTest = (Math.random() * (400 - 1) + 1).toFixed(2);
+
+	    console.log("Debug Rand Cash: " + debugTest);
+	  },
+	  roundStart() {
+	    var startTotal = this.randCash;
+	    var startPaid = startTotal + 20; //todo Make this not just 20, any dollar amount above paid
+	    var startTarget = startPaid - startTotal;
+
+	    this.setState.total = startTotal;
+	    this.setState.paid = startPaid; //TODO dollar amound above randCash, preferably in amounts that make sense
+	    this.setState.target = startTarget;
+	    this.forceUpdate(); //TODO DONT LEAVE THIS IN FIX IT RIGHT
+	    console.log("Debug round start Total: " + this.state.total + "Paid: " + this.state.total);
+	  },
 	  handleSubmit: function () {
+	    console.log("Debug target on submit: " + this.state.target);
 	    this.props.onClick(this.state.current, this.state.target);
 	  },
 	  handleClick: function (cash) {
@@ -21606,7 +21631,12 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(Status, { total: this.state.total, paid: this.state.paid, current: this.state.current }),
+	      React.createElement(
+	        'button',
+	        { onClick: this.roundStart },
+	        'Debug Test'
+	      ),
+	      React.createElement(Status, { total: this.state.total, paid: this.state.paid, current: this.state.current, status: this.props.status }),
 	      React.createElement(
 	        'button',
 	        { onClick: this.handleSubmit },
@@ -21648,7 +21678,7 @@
 	    return React.createElement(
 	      'p',
 	      null,
-	      'status message'
+	      this.props.status
 	    );
 	  }
 	});
