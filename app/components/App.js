@@ -18,7 +18,7 @@ var App = React.createClass({
   getInitialState: function () {
     return {status: "begin"};
   },
-  compare: function (current, target) {
+  compare: function (current, target, off) {
     //TODO either run a state that indicates a game mode and determines what to do in this function
     //or make a differnt function that gets called becdause of  agame mode state
     console.log('debug compare');
@@ -33,12 +33,12 @@ var App = React.createClass({
     else if(current > target){
       //TODO render a missed answer message saying too much given, maybe in status
       console.log("too much");
-      this.setState({status : "You gave too much back!"});
+      this.setState({status : "You gave $" + off + " too much!"});
     }
     else if(current < target){
       //TODO render missed message showing not enought given
       console.log("not enough");
-      this.setState({status : "You didn't give enough!"});
+      this.setState({status : "You gave $" + off + " too little!"});
     }
     //compare target and current on submit click
     //pass current and target?
