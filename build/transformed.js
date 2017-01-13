@@ -21562,7 +21562,7 @@
 	    console.log(this.state);
 	    return React.createElement(
 	      'button',
-	      { onClick: this.handleButton },
+	      { className: 'btn-primary', onClick: this.handleButton },
 	      '$' + this.props.label
 	    );
 	  }
@@ -21696,15 +21696,15 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(
-	        'button',
-	        { onClick: this.roundStart, hidden: !this.state.hide },
-	        this.state.label
-	      ),
 	      React.createElement(Status, { total: this.state.total, paid: this.state.paid, current: this.state.current, status: this.state.status }),
 	      React.createElement(
 	        'button',
-	        { onClick: this.handleSubmit, hidden: this.state.hide },
+	        { className: 'btn-danger', onClick: this.roundStart, hidden: !this.state.hide },
+	        this.state.label
+	      ),
+	      React.createElement(
+	        'button',
+	        { className: 'btn-danger', onClick: this.handleSubmit, hidden: this.state.hide },
 	        'Submit'
 	      ),
 	      React.createElement(

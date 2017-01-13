@@ -130,9 +130,10 @@ var Input = React.createClass({
   render: function () {
     return (
       <div>
-        <button onClick = {this.roundStart} hidden = {!this.state.hide}>{this.state.label}</button>
+
         <Status total = {this.state.total} paid = {this.state.paid} current = {this.state.current} status = {this.state.status}/>
-        <button onClick = {this.handleSubmit} hidden = {this.state.hide}>Submit</button>
+        <button className = "btn-danger" onClick = {this.roundStart} hidden = {!this.state.hide}>{this.state.label}</button>
+        <button className = "btn-danger" onClick = {this.handleSubmit} hidden = {this.state.hide}>Submit</button>
         <div>
           <Button cash = {20} label = {"20"} onClick = {this.handleClick} current = {this.state.current}/>
           <Button cash = {10} label = {"10"} onClick = {this.handleClick} current = {this.state.current}/>
