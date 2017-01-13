@@ -21580,9 +21580,9 @@
 
 	//TODO fix rounding and decimal issues
 	//TODO remove the dependance on these variables and remove them
-	var total = 50; //make random
-	var paid = 100; //make random higher than total
-	var target = paid - total;
+	//var total = 50; //make random
+	//var paid = 100; //make random higher than total
+	var target = 50;
 
 	var Input = React.createClass({
 	  displayName: 'Input',
@@ -21629,6 +21629,7 @@
 	      paid: this.getPaid(),
 	      target: target,
 	      label: "Start!",
+	      hide: true,
 	      status: "Begin" };
 	  },
 
@@ -21637,7 +21638,7 @@
 	    var startPaid = this.getPaid(startTotal); //todo Make this not just 20, any dollar amount above paid
 	    var startTarget = parseFloat((parseFloat(startPaid) - parseFloat(startTotal)).toFixed(2)); //TODO remove parsefloats?
 	    var status = "The total was $" + startTotal + " and the customer paid $" + startPaid;
-
+	    this.setState({ hide: false });
 	    this.setState({ status: status });
 	    //console.log("Debug start vars " + startTotal + " " + startPaid + " " + startTarget);
 	    this.setState({ total: startTotal });
@@ -21653,12 +21654,13 @@
 	    //TODO move this logic somewhere else, computes amount off by
 	    var off;
 	    //TODO change status name to avoid confusion with state status
+	    //TODO possible rounding errors here
 	    var status;
 	    if (this.state.current > this.state.target) {
-	      off = this.state.current - this.state.target;
+	      off = this.state.current.toFixed(2) - this.state.target.toFixed(2);
 	      status = "You paid $" + off.toFixed(2) + " too much!";
 	    } else if (this.state.current < this.state.target) {
-	      off = this.state.target - this.state.current;
+	      off = this.state.target.toFixed(2) - this.state.current.toFixed(2);
 	      status = "You paid $" + off.toFixed(2) + " too little!";
 	    } else {
 	      off = 0;
@@ -21666,7 +21668,7 @@
 	    }
 	    //This function call can probably be culled, at the very least it doesnt need off
 	    //this.props.onClick(this.state.current, this.state.target, off.toFixed(2));
-
+	    this.setState({ hide: true });
 	    this.setState({ status: status });
 	    this.setState({ label: "Try again?" });
 	  },
@@ -21696,13 +21698,13 @@
 	      null,
 	      React.createElement(
 	        'button',
-	        { onClick: this.roundStart },
+	        { onClick: this.roundStart, hidden: !this.state.hide },
 	        this.state.label
 	      ),
 	      React.createElement(Status, { total: this.state.total, paid: this.state.paid, current: this.state.current, status: this.state.status }),
 	      React.createElement(
 	        'button',
-	        { onClick: this.handleSubmit },
+	        { onClick: this.handleSubmit, hidden: this.state.hide },
 	        'Submit'
 	      ),
 	      React.createElement(

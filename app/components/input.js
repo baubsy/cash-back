@@ -4,9 +4,9 @@ var Status = require('./status');
 
 //TODO fix rounding and decimal issues
 //TODO remove the dependance on these variables and remove them
-var total = 50; //make random
-var paid = 100; //make random higher than total
-var target = paid - total;
+//var total = 50; //make random
+//var paid = 100; //make random higher than total
+var target = 50;
 
 
 var Input = React.createClass({
@@ -59,6 +59,7 @@ var Input = React.createClass({
             paid : this.getPaid(),
             target : target,
             label: "Start!",
+            hide: true,
             status: "Begin"};
   },
 
@@ -67,7 +68,7 @@ var Input = React.createClass({
     var startPaid = this.getPaid(startTotal);//todo Make this not just 20, any dollar amount above paid
     var startTarget = parseFloat((parseFloat(startPaid) - parseFloat(startTotal)).toFixed(2)); //TODO remove parsefloats?
     var status = "The total was $" + startTotal + " and the customer paid $" + startPaid;
-
+    this.setState({hide: false});
     this.setState({status: status});
     //console.log("Debug start vars " + startTotal + " " + startPaid + " " + startTarget);
     this.setState({total: startTotal});
@@ -83,13 +84,14 @@ var Input = React.createClass({
     //TODO move this logic somewhere else, computes amount off by
     var off;
     //TODO change status name to avoid confusion with state status
+    //TODO possible rounding errors here
     var status;
     if(this.state.current > this.state.target){
-      off = this.state.current - this.state.target;
+      off = this.state.current.toFixed(2) - this.state.target.toFixed(2);
       status = "You paid $" + off.toFixed(2) + " too much!";
     }
     else if(this.state.current < this.state.target){
-      off = this.state.target - this.state.current;
+      off = this.state.target.toFixed(2) - this.state.current.toFixed(2);
       status = "You paid $" + off.toFixed(2) + " too little!";
     }
     else{
@@ -98,7 +100,7 @@ var Input = React.createClass({
     }
     //This function call can probably be culled, at the very least it doesnt need off
     //this.props.onClick(this.state.current, this.state.target, off.toFixed(2));
-
+    this.setState({hide: true});
     this.setState({status: status});
     this.setState({label: "Try again?"});
 
@@ -128,9 +130,9 @@ var Input = React.createClass({
   render: function () {
     return (
       <div>
-        <button onClick = {this.roundStart}>{this.state.label}</button>
+        <button onClick = {this.roundStart} hidden = {!this.state.hide}>{this.state.label}</button>
         <Status total = {this.state.total} paid = {this.state.paid} current = {this.state.current} status = {this.state.status}/>
-        <button onClick = {this.handleSubmit} >Submit</button>
+        <button onClick = {this.handleSubmit} hidden = {this.state.hide}>Submit</button>
         <div>
           <Button cash = {20} label = {"20"} onClick = {this.handleClick} current = {this.state.current}/>
           <Button cash = {10} label = {"10"} onClick = {this.handleClick} current = {this.state.current}/>
