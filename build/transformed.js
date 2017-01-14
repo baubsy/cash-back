@@ -21494,7 +21494,7 @@
 	    console.log('debug compare');
 	    console.log(current);
 	    console.log(target);
-	     if(current == target){
+	      if(current == target){
 	      //TODO render a correct answer message
 	      console.log("correct");
 	      //this.setState({status : "Correct"});//TODO Improve these messages, give detailed info feed back
@@ -21542,24 +21542,23 @@
 	var button = React.createClass({
 	  displayName: 'button',
 
-	  //var stateCash = this.props.cash , look up passing state up
-	  //TODO state should not be based on just cash, need to pass total as a props
-	  getInitialState: function () {
-	    return { value: this.props.current };
-	  },
 	  handleButton: function () {
 	    console.log('button click debug');
 	    //console.log(this.state);
+	    //TODO line 9 to 15 not nesscary outside of debug? see input's handleClick function
+	    var fixedCash = this.props.cash + this.props.current;
+
+	    fixedCash.toFixed(2);
 
 	    this.setState({
-	      value: this.props.cash + this.props.current
+	      value: fixedCash
 	    });
-	    console.log(this.state.value);
+	    //console.log(this.state.value);
 
 	    this.props.onClick(this.props.cash);
 	  },
 	  render: function () {
-	    console.log(this.state);
+	    //console.log(this.state);
 	    return React.createElement(
 	      'button',
 	      { className: 'btn-primary', onClick: this.handleButton },
@@ -21598,29 +21597,31 @@
 	  },
 	  getPaid(cash) {
 	    var newPaid = cash;
-	    var rand = Math.random();
+	    var rand = 6 * Math.random();
 	    //decide how much is over paid in logical dollar amounts
 	    //TODO iron out amounts
 	    //TODO watchout for rounding errors causing problems here
-	    if (rand > .84) {
+	    if (rand > 5) {
 	      //1
 	      newPaid = (parseFloat(cash) + 1).toFixed(0);
-	    } else if (rand > .68) {
+	    } else if (rand > 4) {
 	      //5
 	      newPaid = (parseFloat(cash) + 5).toFixed(0);
-	    } else if (rand > .54) {
+	    } else if (rand > 3) {
 	      //10
 	      newPaid = (parseFloat(cash) + 10).toFixed(0);
-	    } else if (rand > .40) {
+	    } else if (rand > 2) {
 	      //20
 	      newPaid = (parseFloat(cash) + 20).toFixed(0);
-	    } else if (rand > .30) {
+	    } else if (rand > 1) {
 	      //50
 	      newPaid = (parseFloat(cash) + 50).toFixed(0);
 	    } else {
 	      newPaid = (parseFloat(cash) + 100).toFixed(0);
 	    };
-	    return newPaid;
+
+	    var fixPaid = parseFloat(newPaid).toFixed(2);
+	    return fixPaid;
 	  },
 
 	  getInitialState: function () {
@@ -21653,14 +21654,22 @@
 	    console.log("Debug target on submit: " + this.state.target);
 	    //TODO move this logic somewhere else, computes amount off by
 	    var off;
+	    var current = this.state.current;
+	    var target = this.state.target;
+	    current.toFixed(2);
+	    target.toFixed(2);
+
 	    //TODO change status name to avoid confusion with state status
-	    //TODO possible rounding errors here
+	    //TODO almost defeinite rounding errors here
+	    //TODO "You paid 0.00 too much/too little"
 	    var status;
-	    if (this.state.current > this.state.target) {
-	      off = this.state.current.toFixed(2) - this.state.target.toFixed(2);
+	    if (current > target) {
+	      console.log("Current: " + current + " Target: " + target);
+	      off = current - target;
 	      status = "You paid $" + off.toFixed(2) + " too much!";
-	    } else if (this.state.current < this.state.target) {
-	      off = this.state.target.toFixed(2) - this.state.current.toFixed(2);
+	    } else if (current < target) {
+	      console.log("Current: " + current + " Target: " + target);
+	      off = target - current;
 	      status = "You paid $" + off.toFixed(2) + " too little!";
 	    } else {
 	      off = 0;
@@ -21679,9 +21688,10 @@
 	    debugCash = debugCash + 1;
 	    console.log(debugCash);
 	    */
-
+	    var fixedCash = cash + this.state.current;
+	    fixedCash.toFixed(2);
 	    this.setState({
-	      current: cash + this.state.current
+	      current: fixedCash
 
 	    });
 	  },
