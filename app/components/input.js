@@ -78,7 +78,7 @@ var Input = React.createClass({
     this.setState({target: startTarget});
     this.setState({current: 0});
 
-    console.log("Debug round start Total: " + this.state.total + "Paid: " + this.state.total);
+    console.log("Debug round start Total: " + this.state.total + " Paid: " + this.state.total);
   },
   //comparison happens here, maybe shouldnt
   handleSubmit: function () {
@@ -94,12 +94,12 @@ var Input = React.createClass({
     //TODO almost defeinite rounding errors here
     //TODO "You paid 0.00 too much/too little"
     var status;
-    if(current > target){
+    if(current.toFixed(2) > target.toFixed(2)){
       console.log("Current: " + current + " Target: " + target);
       off = current - target;
       status = "You paid $" + off.toFixed(2) + " too much!";
     }
-    else if(current < target){
+    else if(current.toFixed(2) < target.toFixed(2)){
       console.log("Current: " + current + " Target: " + target);
       off = target - current;
       status = "You paid $" + off.toFixed(2) + " too little!";

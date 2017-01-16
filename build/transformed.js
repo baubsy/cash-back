@@ -21494,7 +21494,7 @@
 	    console.log('debug compare');
 	    console.log(current);
 	    console.log(target);
-	      if(current == target){
+	     if(current == target){
 	      //TODO render a correct answer message
 	      console.log("correct");
 	      //this.setState({status : "Correct"});//TODO Improve these messages, give detailed info feed back
@@ -21647,7 +21647,7 @@
 	    this.setState({ target: startTarget });
 	    this.setState({ current: 0 });
 
-	    console.log("Debug round start Total: " + this.state.total + "Paid: " + this.state.total);
+	    console.log("Debug round start Total: " + this.state.total + " Paid: " + this.state.total);
 	  },
 	  //comparison happens here, maybe shouldnt
 	  handleSubmit: function () {
@@ -21663,11 +21663,11 @@
 	    //TODO almost defeinite rounding errors here
 	    //TODO "You paid 0.00 too much/too little"
 	    var status;
-	    if (current > target) {
+	    if (current.toFixed(2) > target.toFixed(2)) {
 	      console.log("Current: " + current + " Target: " + target);
 	      off = current - target;
 	      status = "You paid $" + off.toFixed(2) + " too much!";
-	    } else if (current < target) {
+	    } else if (current.toFixed(2) < target.toFixed(2)) {
 	      console.log("Current: " + current + " Target: " + target);
 	      off = target - current;
 	      status = "You paid $" + off.toFixed(2) + " too little!";
