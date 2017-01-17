@@ -21494,7 +21494,7 @@
 	    console.log('debug compare');
 	    console.log(current);
 	    console.log(target);
-	     if(current == target){
+	      if(current == target){
 	      //TODO render a correct answer message
 	      console.log("correct");
 	      //this.setState({status : "Correct"});//TODO Improve these messages, give detailed info feed back
@@ -21599,7 +21599,7 @@
 	    var newPaid = cash;
 	    var rand = 6 * Math.random();
 	    //decide how much is over paid in logical dollar amounts
-	    //TODO iron out amounts
+	    //TODO fix ToFixeds
 	    //TODO watchout for rounding errors causing problems here
 	    if (rand > 5) {
 	      //1
@@ -21656,18 +21656,19 @@
 	    var off;
 	    var current = this.state.current;
 	    var target = this.state.target;
-	    current.toFixed(2);
-	    target.toFixed(2);
+	    current = Math.round(current * 100) / 100;
+	    target = Math.round(target * 100) / 100;
 
 	    //TODO change status name to avoid confusion with state status
 	    //TODO almost defeinite rounding errors here
 	    //TODO "You paid 0.00 too much/too little"
+	    //TODO fix with math.round(value*100)/100 instead of tofixed and check if it fixes problem
 	    var status;
-	    if (current.toFixed(2) > target.toFixed(2)) {
+	    if (current > target) {
 	      console.log("Current: " + current + " Target: " + target);
 	      off = current - target;
 	      status = "You paid $" + off.toFixed(2) + " too much!";
-	    } else if (current.toFixed(2) < target.toFixed(2)) {
+	    } else if (current < target) {
 	      console.log("Current: " + current + " Target: " + target);
 	      off = target - current;
 	      status = "You paid $" + off.toFixed(2) + " too little!";
@@ -21689,7 +21690,7 @@
 	    console.log(debugCash);
 	    */
 	    var fixedCash = cash + this.state.current;
-	    fixedCash.toFixed(2);
+	    fixedCash = Math.round(fixedCash * 100) / 100;
 	    this.setState({
 	      current: fixedCash
 
