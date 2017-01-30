@@ -21721,7 +21721,7 @@
 	      React.createElement(
 	        'div',
 	        null,
-	        React.createElement(Button, { cash: 20, label: "20", onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: 20, label: "20 ", onClick: this.handleClick, current: this.state.current }),
 	        React.createElement(Button, { cash: 10, label: "10", onClick: this.handleClick, current: this.state.current }),
 	        React.createElement(Button, { cash: 5, label: "5", onClick: this.handleClick, current: this.state.current }),
 	        React.createElement(Button, { cash: 1, label: "1", onClick: this.handleClick, current: this.state.current })
