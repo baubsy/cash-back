@@ -144,19 +144,21 @@ var Input = React.createClass({
       <div>
 
         <Status total = {this.state.total} paid = {this.state.paid} current = {this.state.current} status = {this.state.status}/>
-        <button className = "btn-danger" onClick = {this.roundStart} hidden = {!this.state.hide}>{this.state.label}</button>
-        <button className = "btn-danger" onClick = {this.handleSubmit} hidden = {this.state.hide}>Submit</button>
+        <p>
+        <button className = "btn-danger btn-lg" onClick = {this.roundStart} hidden = {!this.state.hide}>{this.state.label}</button>
+        <button className = "btn-danger btn-lg" onClick = {this.handleSubmit} hidden = {this.state.hide}>Submit</button>
+        </p>
         <div>
-          <Button cash = {20} label = {"20"} onClick = {this.handleClick} current = {this.state.current}/>
-          <Button cash = {10} label = {"10"} onClick = {this.handleClick} current = {this.state.current}/>
-          <Button cash = {5} label = {"5"} onClick = {this.handleClick} current = {this.state.current}/>
-          <Button cash = {1} label = {"1"} onClick = {this.handleClick} current = {this.state.current}/>
+          <Button cash = {20} label = {"$20"} onClick = {this.handleClick} current = {this.state.current}/>
+          <Button cash = {10} label = {"$10"} onClick = {this.handleClick} current = {this.state.current}/>
+          <Button cash = {5} label = {"$5"} onClick = {this.handleClick} current = {this.state.current}/>
+          <Button cash = {1} label = {"$1"} onClick = {this.handleClick} current = {this.state.current}/>
         </div>
         <div>
-          <Button cash = {.25} label = {".25"} onClick = {this.handleClick} current = {this.state.current}/>
-          <Button cash = {.10} label = {".10"} onClick = {this.handleClick} current = {this.state.current}/>
-          <Button cash = {.05} label = {".05"} onClick = {this.handleClick} current = {this.state.current}/>
-          <Button cash = {.01} label = {".01"} onClick = {this.handleClick} current = {this.state.current}/>
+          <Button cash = {.25} label = {"¢25"} onClick = {this.handleClick} current = {this.state.current}/>
+          <Button cash = {.10} label = {"¢10"} onClick = {this.handleClick} current = {this.state.current}/>
+          <Button cash = {.05} label = {"¢5"} onClick = {this.handleClick} current = {this.state.current}/>
+          <Button cash = {.01} label = {"¢1"} onClick = {this.handleClick} current = {this.state.current}/>
         </div>
       </div>
     );

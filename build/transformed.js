@@ -21494,7 +21494,7 @@
 	    console.log('debug compare');
 	    console.log(current);
 	    console.log(target);
-	      if(current == target){
+	     if(current == target){
 	      //TODO render a correct answer message
 	      console.log("correct");
 	      //this.setState({status : "Correct"});//TODO Improve these messages, give detailed info feed back
@@ -21561,8 +21561,8 @@
 	    //console.log(this.state);
 	    return React.createElement(
 	      'button',
-	      { className: 'btn-primary', onClick: this.handleButton },
-	      '$' + this.props.label
+	      { className: 'btn-lg btn-primary', onClick: this.handleButton },
+	      this.props.label
 	    );
 	  }
 	});
@@ -21709,30 +21709,34 @@
 	      null,
 	      React.createElement(Status, { total: this.state.total, paid: this.state.paid, current: this.state.current, status: this.state.status }),
 	      React.createElement(
-	        'button',
-	        { className: 'btn-danger', onClick: this.roundStart, hidden: !this.state.hide },
-	        this.state.label
-	      ),
-	      React.createElement(
-	        'button',
-	        { className: 'btn-danger', onClick: this.handleSubmit, hidden: this.state.hide },
-	        'Submit'
+	        'p',
+	        null,
+	        React.createElement(
+	          'button',
+	          { className: 'btn-danger btn-lg', onClick: this.roundStart, hidden: !this.state.hide },
+	          this.state.label
+	        ),
+	        React.createElement(
+	          'button',
+	          { className: 'btn-danger btn-lg', onClick: this.handleSubmit, hidden: this.state.hide },
+	          'Submit'
+	        )
 	      ),
 	      React.createElement(
 	        'div',
 	        null,
-	        React.createElement(Button, { cash: 20, label: "20 ", onClick: this.handleClick, current: this.state.current }),
-	        React.createElement(Button, { cash: 10, label: "10", onClick: this.handleClick, current: this.state.current }),
-	        React.createElement(Button, { cash: 5, label: "5", onClick: this.handleClick, current: this.state.current }),
-	        React.createElement(Button, { cash: 1, label: "1", onClick: this.handleClick, current: this.state.current })
+	        React.createElement(Button, { cash: 20, label: "$20", onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: 10, label: "$10", onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: 5, label: "$5", onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: 1, label: "$1", onClick: this.handleClick, current: this.state.current })
 	      ),
 	      React.createElement(
 	        'div',
 	        null,
-	        React.createElement(Button, { cash: .25, label: ".25", onClick: this.handleClick, current: this.state.current }),
-	        React.createElement(Button, { cash: .10, label: ".10", onClick: this.handleClick, current: this.state.current }),
-	        React.createElement(Button, { cash: .05, label: ".05", onClick: this.handleClick, current: this.state.current }),
-	        React.createElement(Button, { cash: .01, label: ".01", onClick: this.handleClick, current: this.state.current })
+	        React.createElement(Button, { cash: .25, label: "¢25", onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: .10, label: "¢10", onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: .05, label: "¢5", onClick: this.handleClick, current: this.state.current }),
+	        React.createElement(Button, { cash: .01, label: "¢1", onClick: this.handleClick, current: this.state.current })
 	      )
 	    );
 	  }
