@@ -61,7 +61,9 @@ var Input = React.createClass({
             paid : this.getPaid(),
             target : target,
             label: "Start!",
+            btnStyle: "btn-success btn-lg",
             hide: true,
+            style: "lead",
             status: "Begin"};
   },
 
@@ -77,6 +79,8 @@ var Input = React.createClass({
     this.setState({paid: startPaid});//TODO dollar amound above randCash, preferably in amounts that make sense
     this.setState({target: startTarget});
     this.setState({current: 0});
+    this.setState({style: "lead"})
+    this.setState({btnStyle: "btn-success btn-lg"});
 
     console.log("Debug round start Total: " + this.state.total + " Paid: " + this.state.total);
   },
@@ -87,6 +91,8 @@ var Input = React.createClass({
     var off;
     var current = this.state.current;
     var target = this.state.target;
+    var style; //changes status color green/red dependant on right/wrong
+    var btnStyle; //changes button color dependant on right/wrong
     current = Math.round(current*100)/100;
     target = Math.round(target*100)/100;
 
@@ -99,21 +105,29 @@ var Input = React.createClass({
       console.log("Current: " + current + " Target: " + target);
       off = current - target;
       status = "You paid $" + off.toFixed(2) + " too much!";
+      style = "lead text-danger";
+      btnStyle = "btn-danger btn-lg";
     }
     else if(current < target){
       console.log("Current: " + current + " Target: " + target);
       off = target - current;
       status = "You paid $" + off.toFixed(2) + " too little!";
+      style = "lead text-danger";
+      btnStyle = "btn-danger btn-lg";
     }
     else{
       off = 0;
       status = "You got it right!";
+      style = "lead text-success";
+      btnStyle = "btn-success btn-lg";
     }
     //This function call can probably be culled, at the very least it doesnt need off
     //this.props.onClick(this.state.current, this.state.target, off.toFixed(2));
     this.setState({hide: true});
     this.setState({status: status});
     this.setState({label: "Try again?"});
+    this.setState({style: style});
+    this.setState({btnStyle: btnStyle});
 
   },
   handleClick: function (cash) {
@@ -139,14 +153,16 @@ var Input = React.createClass({
   },
   //TODO change this.props.onClick to a function that compares values for submit button
   //TODO add status props
+  //status before i mess it up:
+  //<Status total = {this.state.total} paid = {this.state.paid} current = {this.state.current} status = {this.state.status}/>
   render: function () {
     return (
       <div>
 
-        <Status total = {this.state.total} paid = {this.state.paid} current = {this.state.current} status = {this.state.status}/>
+        <Status status = {this.state.status} style = {this.state.style}/>
         <p>
-        <button className = "btn-danger btn-lg" onClick = {this.roundStart} hidden = {!this.state.hide}>{this.state.label}</button>
-        <button className = "btn-danger btn-lg" onClick = {this.handleSubmit} hidden = {this.state.hide}>Submit</button>
+        <button className = {this.state.btnStyle} onClick = {this.roundStart} hidden = {!this.state.hide}>{this.state.label}</button>
+        <button className = "btn-success btn-lg" onClick = {this.handleSubmit} hidden = {this.state.hide}>Submit</button>
         </p>
         <div>
           <Button cash = {20} label = {"$20"} onClick = {this.handleClick} current = {this.state.current}/>

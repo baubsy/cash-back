@@ -21630,7 +21630,9 @@
 	      paid: this.getPaid(),
 	      target: target,
 	      label: "Start!",
+	      btnStyle: "btn-success btn-lg",
 	      hide: true,
+	      style: "lead",
 	      status: "Begin" };
 	  },
 
@@ -21646,6 +21648,8 @@
 	    this.setState({ paid: startPaid }); //TODO dollar amound above randCash, preferably in amounts that make sense
 	    this.setState({ target: startTarget });
 	    this.setState({ current: 0 });
+	    this.setState({ style: "lead" });
+	    this.setState({ btnStyle: "btn-success btn-lg" });
 
 	    console.log("Debug round start Total: " + this.state.total + " Paid: " + this.state.total);
 	  },
@@ -21656,6 +21660,8 @@
 	    var off;
 	    var current = this.state.current;
 	    var target = this.state.target;
+	    var style; //changes status color green/red dependant on right/wrong
+	    var btnStyle; //changes button color dependant on right/wrong
 	    current = Math.round(current * 100) / 100;
 	    target = Math.round(target * 100) / 100;
 
@@ -21668,19 +21674,27 @@
 	      console.log("Current: " + current + " Target: " + target);
 	      off = current - target;
 	      status = "You paid $" + off.toFixed(2) + " too much!";
+	      style = "lead text-danger";
+	      btnStyle = "btn-danger btn-lg";
 	    } else if (current < target) {
 	      console.log("Current: " + current + " Target: " + target);
 	      off = target - current;
 	      status = "You paid $" + off.toFixed(2) + " too little!";
+	      style = "lead text-danger";
+	      btnStyle = "btn-danger btn-lg";
 	    } else {
 	      off = 0;
 	      status = "You got it right!";
+	      style = "lead text-success";
+	      btnStyle = "btn-success btn-lg";
 	    }
 	    //This function call can probably be culled, at the very least it doesnt need off
 	    //this.props.onClick(this.state.current, this.state.target, off.toFixed(2));
 	    this.setState({ hide: true });
 	    this.setState({ status: status });
 	    this.setState({ label: "Try again?" });
+	    this.setState({ style: style });
+	    this.setState({ btnStyle: btnStyle });
 	  },
 	  handleClick: function (cash) {
 	    //logic for adding up button clicks
@@ -21703,22 +21717,24 @@
 	  },
 	  //TODO change this.props.onClick to a function that compares values for submit button
 	  //TODO add status props
+	  //status before i mess it up:
+	  //<Status total = {this.state.total} paid = {this.state.paid} current = {this.state.current} status = {this.state.status}/>
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(Status, { total: this.state.total, paid: this.state.paid, current: this.state.current, status: this.state.status }),
+	      React.createElement(Status, { status: this.state.status, style: this.state.style }),
 	      React.createElement(
 	        'p',
 	        null,
 	        React.createElement(
 	          'button',
-	          { className: 'btn-danger btn-lg', onClick: this.roundStart, hidden: !this.state.hide },
+	          { className: this.state.btnStyle, onClick: this.roundStart, hidden: !this.state.hide },
 	          this.state.label
 	        ),
 	        React.createElement(
 	          'button',
-	          { className: 'btn-danger btn-lg', onClick: this.handleSubmit, hidden: this.state.hide },
+	          { className: 'btn-success btn-lg', onClick: this.handleSubmit, hidden: this.state.hide },
 	          'Submit'
 	        )
 	      ),
@@ -21757,7 +21773,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'p',
-	      null,
+	      { className: this.props.style },
 	      this.props.status
 	    );
 	  }
@@ -21772,15 +21788,12 @@
 	var React = __webpack_require__(1);
 	//component for selecting options such as, hide amounts, do a set?, timed?
 	//pass state to app?
+	//TODO add options,
 	var Options = React.createClass({
 	  displayName: 'Options',
 
 	  render: function () {
-	    return React.createElement(
-	      'p',
-	      null,
-	      'temp options'
-	    );
+	    return React.createElement('p', null);
 	  }
 	});
 

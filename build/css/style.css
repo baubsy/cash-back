@@ -4,3 +4,7 @@ body {
 button{
   margin: 3px;
 }
+.jumbotron{
+  color: white;
+  background-color: #5cb85c;
+}
