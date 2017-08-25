@@ -21467,52 +21467,10 @@
 	var Input = __webpack_require__(180);
 	var Options = __webpack_require__(182);
 
-	//TODO after hitting submit prompt for another round, update target, total, and paid/set current back to zero
-
-	//maybe make a status.js
 	var App = React.createClass({
 	  displayName: 'App',
 
-	  /*
-	  getInitialState: function () {
-	    return {target: 8.55,
-	            total: 11.45,
-	            paid: 20.00,
-	            current: 0.0}; //TODO make target calculated from total and paid amount, make total and paid random
-	  },
-	  */
-	  /*
-	  getInitialState: function () {
-	    return {status: "begin"};
-	  },
-	  */
-	  /* Compare isnt done here atm
-	  compare: function (current, target, off) {
-	    //TODO is this even nesscary anymore? at the very least doesnt need var off
-	    //TODO either run a state that indicates a game mode and determines what to do in this function
-	    //or make a differnt function that gets called becdause of  agame mode state
-	    console.log('debug compare');
-	    console.log(current);
-	    console.log(target);
-	     if(current == target){
-	      //TODO render a correct answer message
-	      console.log("correct");
-	      //this.setState({status : "Correct"});//TODO Improve these messages, give detailed info feed back
-	    }
-	    else if(current > target){
-	      //TODO render a missed answer message saying too much given, maybe in status
-	      console.log("too much");
-	      //this.setState({status : "You gave $" + off + " too much!"});
-	    }
-	    else if(current < target){
-	      //TODO render missed message showing not enought given
-	      console.log("not enough");
-	      //this.setState({status : "You gave $" + off + " too little!"});
-	    }
-	    //compare target and current on submit click
-	    //pass current and target?
-	    //have status wait and than update props triggering reset?
-	  },*/
+
 	  render: function () {
 	    //console.log(App.state.target);
 	    //for examples sake input with function pass down<Input onClick = {this.compare} status = "Begin!"/>
@@ -21578,17 +21536,11 @@
 	var Status = __webpack_require__(181);
 
 	//TODO fix rounding and decimal issues
-	//TODO remove the dependance on these variables and remove them
-	//var total = 50; //make random
-	//var paid = 100; //make random higher than total
+	//TODO remove the dependance on target and remove it
 	var target = 50;
 
 	var Input = React.createClass({
 	  displayName: 'Input',
-
-
-	  //TODO handle setting first state differntly.
-
 
 	  randCash() {
 	    var cash = (Math.random() * (400 - 1) + 1).toFixed(2);
@@ -21599,7 +21551,7 @@
 	    var newPaid = cash;
 	    var rand = 6 * Math.random();
 	    //decide how much is over paid in logical dollar amounts
-	    //TODO fix ToFixeds
+	    //TODO fix ToFixeds, removing causes change amount to always be the same
 	    //TODO watchout for rounding errors causing problems here
 	    if (rand > 5) {
 	      //1
@@ -21637,7 +21589,7 @@
 	  },
 
 	  roundStart() {
-	    var startTotal = parseFloat(this.randCash()).toFixed(2); //Make use randCash
+	    var startTotal = parseFloat(this.randCash()).toFixed(2); //
 	    var startPaid = this.getPaid(startTotal); //todo Make this not just 20, any dollar amount above paid
 	    var startTarget = parseFloat((parseFloat(startPaid) - parseFloat(startTotal)).toFixed(2)); //TODO remove parsefloats?
 	    var status = "The total was $" + startTotal + " and the customer paid $" + startPaid;
@@ -21666,8 +21618,6 @@
 	    target = Math.round(target * 100) / 100;
 
 	    //TODO change status name to avoid confusion with state status
-	    //TODO almost defeinite rounding errors here
-	    //TODO "You paid 0.00 too much/too little"
 	    //TODO fix with math.round(value*100)/100 instead of tofixed and check if it fixes problem
 	    var status;
 	    if (current > target) {

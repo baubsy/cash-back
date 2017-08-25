@@ -3,18 +3,11 @@ var Button = require('./button');
 var Status = require('./status');
 
 //TODO fix rounding and decimal issues
-//TODO remove the dependance on these variables and remove them
-//var total = 50; //make random
-//var paid = 100; //make random higher than total
+//TODO remove the dependance on target and remove it
 var target = 50;
 
 
 var Input = React.createClass({
-
-  //TODO handle setting first state differntly.
-
-
-
   randCash(){
       var cash = (Math.random() * (400 - 1) + 1).toFixed(2);
 
@@ -24,12 +17,11 @@ var Input = React.createClass({
     var newPaid = cash;
     var rand = 6 * Math.random();
     //decide how much is over paid in logical dollar amounts
-    //TODO fix ToFixeds
+    //TODO fix ToFixeds, removing causes change amount to always be the same
     //TODO watchout for rounding errors causing problems here
     if(rand > 5){
       //1
       newPaid = (parseFloat(cash) + 1).toFixed(0);
-
     }
     else if(rand > 4){
       //5
@@ -68,7 +60,7 @@ var Input = React.createClass({
   },
 
   roundStart(){
-    var startTotal = parseFloat(this.randCash()).toFixed(2); //Make use randCash
+    var startTotal = parseFloat(this.randCash()).toFixed(2); //
     var startPaid = this.getPaid(startTotal);//todo Make this not just 20, any dollar amount above paid
     var startTarget = parseFloat((parseFloat(startPaid) - parseFloat(startTotal)).toFixed(2)); //TODO remove parsefloats?
     var status = "The total was $" + startTotal + " and the customer paid $" + startPaid;
@@ -97,8 +89,6 @@ var Input = React.createClass({
     target = Math.round(target*100)/100;
 
     //TODO change status name to avoid confusion with state status
-    //TODO almost defeinite rounding errors here
-    //TODO "You paid 0.00 too much/too little"
     //TODO fix with math.round(value*100)/100 instead of tofixed and check if it fixes problem
     var status;
     if(current > target){
