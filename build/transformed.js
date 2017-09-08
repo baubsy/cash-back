@@ -21585,12 +21585,12 @@
 	      btnStyle: "btn-success btn-lg",
 	      hide: true,
 	      style: "lead",
-	      status: "Begin" };
+	      status: "This is a training tool for counting cash back to customers at a cash register." };
 	  },
 
 	  roundStart() {
-	    var startTotal = parseFloat(this.randCash()).toFixed(2); //
-	    var startPaid = this.getPaid(startTotal); //todo Make this not just 20, any dollar amount above paid
+	    var startTotal = parseFloat(this.randCash()).toFixed(2); //generates a total for the order
+	    var startPaid = this.getPaid(startTotal); //Generates an amount the customer has paid based on gnereated order total
 	    var startTarget = parseFloat((parseFloat(startPaid) - parseFloat(startTotal)).toFixed(2)); //TODO remove parsefloats?
 	    var status = "The total was $" + startTotal + " and the customer paid $" + startPaid;
 	    this.setState({ hide: false });
