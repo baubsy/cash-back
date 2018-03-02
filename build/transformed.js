@@ -21660,14 +21660,10 @@
 
 	    });
 	  },
-	  componentDidUpdate: function () {
-	    //TODO remove these lines at the end. just for debug
-	    //console.log('inputs state current is ' + this.state.current);
-	    //console.log(this.state);
-	  },
 	  //TODO change this.props.onClick to a function that compares values for submit button
 	  //TODO add status props
-	  //status before i mess it up:
+	  //TODO maybe hide buttons?
+	  //orginal status format
 	  //<Status total = {this.state.total} paid = {this.state.paid} current = {this.state.current} status = {this.state.status}/>
 	  render: function () {
 	    return React.createElement(
