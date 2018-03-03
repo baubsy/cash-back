@@ -19,7 +19,7 @@ var button = React.createClass({
   },
   render: function () {
     //console.log(this.state);
-    return <button className = "btn-lg btn-primary" onClick={this.handleButton}>{this.props.label}</button>;
+    return <button className = "btn-lg btn-primary" hidden={this.props.hidden} onClick={this.handleButton}>{this.props.label} </button>;
   }
 });
 

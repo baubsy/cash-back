@@ -2,7 +2,6 @@ var React = require('react');
 var Button = require('./button');
 var Status = require('./status');
 
-//TODO fix rounding and decimal issues
 //TODO remove the dependance on target and remove it
 var target = 50;
 
@@ -16,9 +15,7 @@ var Input = React.createClass({
   getPaid(cash){
     var newPaid = cash;
     var rand = 6 * Math.random();
-    //decide how much is over paid in logical dollar amounts
-    //TODO fix ToFixeds, removing causes change amount to always be the same
-    //TODO watchout for rounding errors causing problems here
+    //decide how much is over paid
     if(rand > 5){
       //1
       newPaid = (parseFloat(cash) + 1).toFixed(0);
@@ -89,7 +86,6 @@ var Input = React.createClass({
     target = Math.round(target*100)/100;
 
     //TODO change status name to avoid confusion with state status
-    //TODO fix with math.round(value*100)/100 instead of tofixed and check if it fixes problem
     var status;
     if(current > target){
       console.log("Current: " + current + " Target: " + target);
@@ -111,8 +107,6 @@ var Input = React.createClass({
       style = "lead text-success";
       btnStyle = "btn-success btn-lg";
     }
-    //This function call can probably be culled, at the very least it doesnt need off
-    //this.props.onClick(this.state.current, this.state.target, off.toFixed(2));
     this.setState({hide: true});
     this.setState({status: status});
     this.setState({label: "Try again?"});
@@ -136,9 +130,7 @@ var Input = React.createClass({
 
 
   },
-  //TODO change this.props.onClick to a function that compares values for submit button
   //TODO add status props
-  //TODO maybe hide buttons?
   //orginal status format
   //<Status total = {this.state.total} paid = {this.state.paid} current = {this.state.current} status = {this.state.status}/>
   render: function () {
@@ -151,16 +143,16 @@ var Input = React.createClass({
         <button className = "btn-success btn-lg" onClick = {this.handleSubmit} hidden = {this.state.hide}>Submit</button>
         </p>
         <div>
-          <Button cash = {20} label = {"$20"} onClick = {this.handleClick} current = {this.state.current}/>
-          <Button cash = {10} label = {"$10"} onClick = {this.handleClick} current = {this.state.current}/>
-          <Button cash = {5} label = {"$5"} onClick = {this.handleClick} current = {this.state.current}/>
-          <Button cash = {1} label = {"$1"} onClick = {this.handleClick} current = {this.state.current}/>
+          <Button cash = {20} label = {"$20"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide}/>
+          <Button cash = {10} label = {"$10"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide}/>
+          <Button cash = {5} label = {"$5"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide}/>
+          <Button cash = {1} label = {"$1"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide}/>
         </div>
         <div>
-          <Button cash = {.25} label = {"¢25"} onClick = {this.handleClick} current = {this.state.current}/>
-          <Button cash = {.10} label = {"¢10"} onClick = {this.handleClick} current = {this.state.current}/>
-          <Button cash = {.05} label = {"¢5"} onClick = {this.handleClick} current = {this.state.current}/>
-          <Button cash = {.01} label = {"¢1"} onClick = {this.handleClick} current = {this.state.current}/>
+          <Button cash = {.25} label = {"¢25"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide}/>
+          <Button cash = {.10} label = {"¢10"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide}/>
+          <Button cash = {.05} label = {"¢5"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide}/>
+          <Button cash = {.01} label = {"¢1"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide}/>
         </div>
       </div>
     );
