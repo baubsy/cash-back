@@ -21548,26 +21548,41 @@
 	    return cash;
 	  },
 	  getPaid(cash) {
+	    // the old method
 	    var newPaid = cash;
 	    var rand = 6 * Math.random();
 	    //decide how much is over paid
+	    //math.trunc cuts off the remainder of the division operation
+	    //simulates customers paying all in one type bill to get realistic amounts above the total
 	    if (rand > 5) {
 	      //1
-	      newPaid = (parseFloat(cash) + 1).toFixed(0);
+	      newPaid = (Math.trunc(parseFloat(cash) / 1) + 1).toFixed(0);
+	      console.log("rand" + rand);
+	      console.log("new paid" + newPaid);
 	    } else if (rand > 4) {
 	      //5
-	      newPaid = (parseFloat(cash) + 5).toFixed(0);
+	      newPaid = (Math.trunc(parseFloat(cash) / 5) * 5 + 5).toFixed(0);
+	      console.log("rand" + rand);
+	      console.log("new paid" + newPaid);
 	    } else if (rand > 3) {
 	      //10
-	      newPaid = (parseFloat(cash) + 10).toFixed(0);
+	      newPaid = (Math.trunc(parseFloat(cash) / 10) * 10 + 10).toFixed(0);
+	      console.log("rand" + rand);
+	      console.log("new paid" + newPaid);
 	    } else if (rand > 2) {
 	      //20
-	      newPaid = (parseFloat(cash) + 20).toFixed(0);
+	      newPaid = (Math.trunc(parseFloat(cash) / 20) * 20 + 20).toFixed(0);
+	      console.log("rand" + rand);
+	      console.log("new paid" + newPaid);
 	    } else if (rand > 1) {
 	      //50
-	      newPaid = (parseFloat(cash) + 50).toFixed(0);
+	      newPaid = (Math.trunc(parseFloat(cash) / 50) * 50 + 50).toFixed(0);
+	      console.log("rand" + rand);
+	      console.log("new paid" + newPaid);
 	    } else {
-	      newPaid = (parseFloat(cash) + 100).toFixed(0);
+	      newPaid = (Math.trunc(parseFloat(cash) / 100) * 100 + 100).toFixed(0);
+	      console.log("rand" + rand);
+	      console.log("new paid" + newPaid);
 	    };
 
 	    var fixPaid = parseFloat(newPaid).toFixed(2);
