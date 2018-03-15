@@ -13,7 +13,6 @@ var Input = React.createClass({
       return cash;
   },
   getPaid(cash){
-    // the old method
     var newPaid = cash;
     var rand = 6 * Math.random();
     //decide how much is over paid
@@ -83,7 +82,7 @@ var Input = React.createClass({
     this.setState({status: status});
     //console.log("Debug start vars " + startTotal + " " + startPaid + " " + startTarget);
     this.setState({total: startTotal});
-    this.setState({paid: startPaid});//TODO dollar amound above randCash, preferably in amounts that make sense
+    this.setState({paid: startPaid});//dollar amount above randCash
     this.setState({target: startTarget});
     this.setState({current: 0});
     this.setState({style: "lead"})
@@ -103,7 +102,6 @@ var Input = React.createClass({
     current = Math.round(current*100)/100;
     target = Math.round(target*100)/100;
 
-    //TODO change status name to avoid confusion with state status
     var status;
     if(current > target){
       console.log("Current: " + current + " Target: " + target);
