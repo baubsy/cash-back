@@ -6,7 +6,7 @@ var Options = require('./options');
 var App = React.createClass({
 
   render: function () {
-    //console.log(App.state.target);
+    //git test
     //for examples sake input with function pass down<Input onClick = {this.compare} status = "Begin!"/>
     return (<div>
             <Options />
