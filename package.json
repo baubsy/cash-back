@@ -1,32 +1,31 @@
 {
-  "name": "cash-back",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "webpack",
-    "start": "webpack-dev-server"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/baubsy/cash-back.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/baubsy/cash-back/issues"
-  },
-  "homepage": "https://github.com/baubsy/cash-back#readme",
+  "name": "cashback2",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.0"
   },
-  "devDependencies": {
-    "babel-core": "^6.20.0",
-    "babel-loader": "^6.2.9",
-    "babel-preset-react": "^6.16.0",
-    "html-webpack-plugin": "^2.24.1",
-    "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
