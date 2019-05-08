@@ -145,8 +145,31 @@ class Input extends React.Component{
 
 
   }
+  buttonBuilder = (denmo, symbol) => {
+    console.log(denmo);
+    console.log(this.state.hide);
+    //labelhelper helps with formating for amounts less than 1
+    var labelHelper = denmo;
+    if(labelHelper < 1){
+      labelHelper = labelHelper * 100
+    }
+    return (
+      <Button
+      cash = {denmo}
+      label = {symbol + labelHelper}
+      onClick = {this.handleClick}
+      current = {this.state.current}
+      hidden = {this.state.hide}
+      counter = {this.props.counter}
+      />
+    )
+  }
 //clean up with a map function itterating over array of denominations
   render() {
+    //these arrays are for generating the buttons
+    const bills = [20, 10, 5, 1];
+    const coins = [.25, .10, .05, .01];
+
     return (
       <div>
 
@@ -156,16 +179,10 @@ class Input extends React.Component{
         <button className = "btn-success btn-lg" onClick = {this.handleSubmit} hidden = {this.state.hide}>Submit</button>
         </p>
         <div>
-          <Button cash = {20} label = {"$20"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide} counter = {this.props.counter}/>
-          <Button cash = {10} label = {"$10"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide} counter = {this.props.counter}/>
-          <Button cash = {5} label = {"$5"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide} counter = {this.props.counter}/>
-          <Button cash = {1} label = {"$1"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide} counter = {this.props.counter}/>
+          {bills.map(bill => this.buttonBuilder(bill, "$"))}
         </div>
         <div>
-          <Button cash = {.25} label = {"¢25"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide} counter = {this.props.counter}/>
-          <Button cash = {.10} label = {"¢10"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide} counter = {this.props.counter}/>
-          <Button cash = {.05} label = {"¢5"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide} counter = {this.props.counter}/>
-          <Button cash = {.01} label = {"¢1"} onClick = {this.handleClick} current = {this.state.current} hidden={this.state.hide} counter = {this.props.counter}/>
+          {coins.map(coin => this.buttonBuilder(coin, "¢"))}
         </div>
       </div>
     );
