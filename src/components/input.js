@@ -19,13 +19,13 @@ class Input extends React.Component {
         };
     }
     randCash() {
-        var cash = (Math.random() * (400 - 1) + 1).toFixed(2);
+        let cash = (Math.random() * (400 - 1) + 1).toFixed(2);
 
         return cash;
     }
     getPaid(cash) {
-        var newPaid = cash;
-        var rand = 6 * Math.random();
+        let newPaid = cash;
+        let rand = 6 * Math.random();
         //decide how much is over paid
         //math.trunc cuts off the remainder of the division operation
         //simulates customers paying all in one type bill to get realistic amounts above the total
@@ -62,17 +62,17 @@ class Input extends React.Component {
             console.log("new paid" + newPaid);
         }
 
-        var fixPaid = parseFloat(newPaid).toFixed(2);
+        let fixPaid = parseFloat(newPaid).toFixed(2);
         return fixPaid;
     }
 
     roundStart = () => {
-        var startTotal = parseFloat(this.randCash()).toFixed(2); //generates a total for the order
-        var startPaid = this.getPaid(startTotal); //Generates an amount the customer has paid based on gnereated order total
-        var startTarget = parseFloat(
+        let startTotal = parseFloat(this.randCash()).toFixed(2); //generates a total for the order
+        let startPaid = this.getPaid(startTotal); //Generates an amount the customer has paid based on gnereated order total
+        let startTarget = parseFloat(
             (parseFloat(startPaid) - parseFloat(startTotal)).toFixed(2)
         ); //TODO remove parsefloats?
-        var status =
+        let status =
             "The total was $" +
             startTotal +
             " and the customer paid $" +
@@ -98,11 +98,11 @@ class Input extends React.Component {
     handleSubmit = () => {
         console.log("Debug target on submit: " + this.state.target);
         //TODO move this logic somewhere else, computes amount off by
-        var off;
-        var current = this.state.current;
-        var target = this.state.target;
-        var style; //changes status color green/red dependant on right/wrong
-        var btnStyle; //changes button color dependant on right/wrong
+        let off;
+        let current = this.state.current;
+        let target = this.state.target;
+        let style; //changes status color green/red dependant on right/wrong
+        let btnStyle; //changes button color dependant on right/wrong
         current = Math.round(current * 100) / 100;
         target = Math.round(target * 100) / 100;
 
