@@ -1,29 +1,38 @@
-import React from 'react';
+import React, { useState } from "react";
 
-import Input from './input';
-import Options from './options';
+import Input from "./input";
+import Options from "./options";
+import Prompt from "./Prompt";
 
-class App extends React.Component {
-  state = {counter: false};
+const App = () => {
+    const [counter, setCounter] = useState(false);
+    const [answer, setAnswer] = useState(0);
+    const [hide, setHide] = useState(true);
+    const [btnStyle, setBtnStyle] = useState("btn-success btn-lg");
 
-  optionsHandler = () => {
-    console.log(this.state.counter);
-    this.setState({counter: !this.state.counter})
+    const optionsHandler = () => {
+        setCounter(!counter);
+    };
 
-  }
-  render() {
-    //git test
-    //for examples sake input with function pass down<Input onClick = {this.compare} status = "Begin!"/>
-    return (<div>
-            <Options counter = {this.state.counter} onToggle = {this.optionsHandler}/>
-            <Input counter = {this.state.counter}/>
-            </div>) //have input keep track of the state?
-  }
-
-  componentDidMount() {
-      //console.log('test1');
-      console.log(this.state);
-  }
+    return (
+        <div>
+            <Options counter={counter} onToggle={optionsHandler} />
+            <Prompt
+                answer={answer}
+                setHide={setHide}
+                setBtnStyle={setBtnStyle}
+                setAnswer={setAnswer}
+            />
+            <Input
+                counter={counter}
+                submitAnswer={setAnswer}
+                hide={hide}
+                setHide={setHide}
+                btnStyle={btnStyle}
+                setBtnStyle={setBtnStyle}
+            />
+        </div>
+    );
 };
 
 export default App;
