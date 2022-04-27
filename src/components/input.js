@@ -1,80 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Button from "./button";
-import Status from "./status";
 
-const Input = ({
-    submitAnswer,
-    counter,
-    hide,
-    setHide,
-    btnStyle,
-    setBtnStyle,
-}) => {
-    /*
-    constructor(props) {
-        super(props);
-        this.state = {
-            current: 0,
-            counterShow: this.props.counter,
-            label: "Start!",
-            btnStyle: "btn-success btn-lg",
-            hide: true,
-        };
-    }
-    */
+const Input = ({ submitAnswer, counter, hide, btnStyle }) => {
     const [current, setCurrent] = useState(0);
     const [label, setLabel] = useState("Start!");
-    //const [btnStyle, setBtnStyle] = useState(" btn-success btn-lg");
-    //const [hide, setHide] = useState(true); handled in app so prompt can also change
 
     const roundStart = () => {
-        //Also fire off roundStart in Prompt
-        //this.setState({ hide: false });
-        //this.setState({ btnStyle: "btn-success btn-lg" });
+        //causes prompt to do its own roundStart
         submitAnswer(-1);
     };
-    //comparison happens here, maybe shouldnt
     const handleSubmit = () => {
-        console.log(`input current: ${current}`);
         submitAnswer(current);
         setLabel("Try again?");
         setCurrent(0);
-        /*
-        console.log("Debug target on submit: " + this.state.target);
-        //TODO move this logic somewhere else, computes amount off by
-        let off;
-        let current = this.state.current;
-        let target = this.state.target;
-        let style; //changes status color green/red dependant on right/wrong
-        let btnStyle; //changes button color dependant on right/wrong
-        current = Math.round(current * 100) / 100;
-        target = Math.round(target * 100) / 100;
-
-        let status;
-        if (current > target) {
-            console.log("Current: " + current + " Target: " + target);
-            off = current - target;
-            status = "You gave back $" + off.toFixed(2) + " too much!";
-            style = "lead text-danger";
-            btnStyle = "btn-danger btn-lg";
-        } else if (current < target) {
-            console.log("Current: " + current + " Target: " + target);
-            off = target - current;
-            status = "You gave back $" + off.toFixed(2) + " too little!";
-            style = "lead text-danger";
-            btnStyle = "btn-danger btn-lg";
-        } else {
-            off = 0;
-            status = "You got it right!";
-            style = "lead text-success";
-            btnStyle = "btn-success btn-lg";
-        }
-        this.setState({ hide: true });
-        this.setState({ status: status });
-        this.setState({ label: "Try again?" });
-        this.setState({ style: style });
-        this.setState({ btnStyle: btnStyle });
-        */
     };
     const handleClick = (cash) => {
         //logic for adding up button clicks
@@ -90,6 +28,7 @@ const Input = ({
         }
         return (
             <Button
+                key={denmo}
                 cash={denmo}
                 label={symbol + labelHelper}
                 onClick={handleClick}
