@@ -1,101 +1,45 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Button from "./button";
 import Status from "./status";
 
-class Input extends React.Component {
+const Input = ({
+    submitAnswer,
+    counter,
+    hide,
+    setHide,
+    btnStyle,
+    setBtnStyle,
+}) => {
+    /*
     constructor(props) {
         super(props);
         this.state = {
             current: 0,
-            total: this.randCash(),
-            paid: this.getPaid(),
-            target: 0,
             counterShow: this.props.counter,
             label: "Start!",
             btnStyle: "btn-success btn-lg",
             hide: true,
-            style: "lead",
-            status: "This is a training tool for counting cash back to customers at a cash register. Click each button for how many bills or coins of that denomination a customer would get back.",
         };
     }
-    randCash() {
-        let cash = (Math.random() * (400 - 1) + 1).toFixed(2);
+    */
+    const [current, setCurrent] = useState(0);
+    const [label, setLabel] = useState("Start!");
+    //const [btnStyle, setBtnStyle] = useState(" btn-success btn-lg");
+    //const [hide, setHide] = useState(true); handled in app so prompt can also change
 
-        return cash;
-    }
-    getPaid(cash) {
-        let newPaid = cash;
-        let rand = 6 * Math.random();
-        //decide how much is over paid
-        //math.trunc cuts off the remainder of the division operation
-        //simulates customers paying all in one type bill to get realistic amounts above the total
-        if (rand > 5) {
-            //1
-            newPaid = (Math.trunc(parseFloat(cash) / 1) + 1).toFixed(0);
-            console.log("rand" + rand);
-            console.log("new paid" + newPaid);
-        } else if (rand > 4) {
-            //5
-            newPaid = (Math.trunc(parseFloat(cash) / 5) * 5 + 5).toFixed(0);
-            console.log("rand" + rand);
-            console.log("new paid" + newPaid);
-        } else if (rand > 3) {
-            //10
-            newPaid = (Math.trunc(parseFloat(cash) / 10) * 10 + 10).toFixed(0);
-            console.log("rand" + rand);
-            console.log("new paid" + newPaid);
-        } else if (rand > 2) {
-            //20
-            newPaid = (Math.trunc(parseFloat(cash) / 20) * 20 + 20).toFixed(0);
-            console.log("rand" + rand);
-            console.log("new paid" + newPaid);
-        } else if (rand > 1) {
-            //50
-            newPaid = (Math.trunc(parseFloat(cash) / 50) * 50 + 50).toFixed(0);
-            console.log("rand" + rand);
-            console.log("new paid" + newPaid);
-        } else {
-            newPaid = (Math.trunc(parseFloat(cash) / 100) * 100 + 100).toFixed(
-                0
-            );
-            console.log("rand" + rand);
-            console.log("new paid" + newPaid);
-        }
-
-        let fixPaid = parseFloat(newPaid).toFixed(2);
-        return fixPaid;
-    }
-
-    roundStart = () => {
-        let startTotal = parseFloat(this.randCash()).toFixed(2); //generates a total for the order
-        let startPaid = this.getPaid(startTotal); //Generates an amount the customer has paid based on gnereated order total
-        let startTarget = parseFloat(
-            (parseFloat(startPaid) - parseFloat(startTotal)).toFixed(2)
-        ); //TODO remove parsefloats?
-        let status =
-            "The total was $" +
-            startTotal +
-            " and the customer paid $" +
-            startPaid;
-        this.setState({ hide: false });
-        this.setState({ status: status });
-        //console.log("Debug start vars " + startTotal + " " + startPaid + " " + startTarget);
-        this.setState({ total: startTotal });
-        this.setState({ paid: startPaid }); //dollar amount above randCash
-        this.setState({ target: startTarget });
-        this.setState({ current: 0 });
-        this.setState({ style: "lead" });
-        this.setState({ btnStyle: "btn-success btn-lg" });
-
-        console.log(
-            "Debug round start Total: " +
-                this.state.total +
-                " Paid: " +
-                this.state.total
-        );
+    const roundStart = () => {
+        //Also fire off roundStart in Prompt
+        //this.setState({ hide: false });
+        //this.setState({ btnStyle: "btn-success btn-lg" });
+        submitAnswer(-1);
     };
     //comparison happens here, maybe shouldnt
-    handleSubmit = () => {
+    const handleSubmit = () => {
+        console.log(`input current: ${current}`);
+        submitAnswer(current);
+        setLabel("Try again?");
+        setCurrent(0);
+        /*
         console.log("Debug target on submit: " + this.state.target);
         //TODO move this logic somewhere else, computes amount off by
         let off;
@@ -106,7 +50,7 @@ class Input extends React.Component {
         current = Math.round(current * 100) / 100;
         target = Math.round(target * 100) / 100;
 
-        var status;
+        let status;
         if (current > target) {
             console.log("Current: " + current + " Target: " + target);
             off = current - target;
@@ -130,25 +74,17 @@ class Input extends React.Component {
         this.setState({ label: "Try again?" });
         this.setState({ style: style });
         this.setState({ btnStyle: btnStyle });
+        */
     };
-    handleClick = (cash) => {
+    const handleClick = (cash) => {
         //logic for adding up button clicks
-        console.log("debug button click input");
-        /*
-    debugCash = debugCash + 1;
-    console.log(debugCash);
-    */
-        var fixedCash = cash + this.state.current;
+        let fixedCash = cash + current;
         fixedCash = Math.round(fixedCash * 100) / 100;
-        this.setState({
-            current: fixedCash,
-        });
+        setCurrent(fixedCash);
     };
-    buttonBuilder = (denmo, symbol) => {
-        console.log(denmo);
-        console.log(this.state.hide);
+    const buttonBuilder = (denmo, symbol) => {
         //labelhelper helps with formating for amounts less than 1
-        var labelHelper = denmo;
+        let labelHelper = denmo;
         if (labelHelper < 1) {
             labelHelper = labelHelper * 100;
         }
@@ -156,43 +92,40 @@ class Input extends React.Component {
             <Button
                 cash={denmo}
                 label={symbol + labelHelper}
-                onClick={this.handleClick}
-                current={this.state.current}
-                hidden={this.state.hide}
-                counterDisplay={this.props.counter}
+                onClick={handleClick}
+                current={current}
+                hidden={hide}
+                counterDisplay={counter}
             />
         );
     };
-    //clean up with a map function itterating over array of denominations
-    render() {
-        //these arrays are for generating the buttons
-        const bills = [20, 10, 5, 1];
-        const coins = [0.25, 0.1, 0.05, 0.01];
 
-        return (
+    //these arrays are for generating the buttons
+    const bills = [20, 10, 5, 1];
+    const coins = [0.25, 0.1, 0.05, 0.01];
+
+    return (
+        <div>
             <div>
-                <Status status={this.state.status} style={this.state.style} />
-                <p>
-                    <button
-                        className={this.state.btnStyle}
-                        onClick={this.roundStart}
-                        hidden={!this.state.hide}
-                    >
-                        {this.state.label}
-                    </button>
-                    <button
-                        className="btn-success btn-lg"
-                        onClick={this.handleSubmit}
-                        hidden={this.state.hide}
-                    >
-                        Submit
-                    </button>
-                </p>
-                <div>{bills.map((bill) => this.buttonBuilder(bill, "$"))}</div>
-                <div>{coins.map((coin) => this.buttonBuilder(coin, "¢"))}</div>
+                <button
+                    className={btnStyle}
+                    onClick={roundStart}
+                    hidden={!hide}
+                >
+                    {label}
+                </button>
+                <button
+                    className="btn-success btn-lg"
+                    onClick={handleSubmit}
+                    hidden={hide}
+                >
+                    Submit
+                </button>
             </div>
-        );
-    }
-}
+            <div>{bills.map((bill) => buttonBuilder(bill, "$"))}</div>
+            <div>{coins.map((coin) => buttonBuilder(coin, "¢"))}</div>
+        </div>
+    );
+};
 
 export default Input;
